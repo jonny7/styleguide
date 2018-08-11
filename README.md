@@ -311,9 +311,7 @@ The `repositories.swift` file is responsible for registering each repository dur
 import Vapor
 
 public func setupRepositories(services: inout Services, config: inout Config) {
-    services.register(UserRepository.self) { _ -> MySQLUserRepository in
-        return MySQLUserRepository()
-    }
+    services.register(MySQLUserRepository.self)
 
     preferDatabaseRepositories(config: &config)
 }
@@ -388,7 +386,7 @@ import Vapor
 import FluentMySQL
 import Foundation
 
-protocol UserRepository: Service {
+protocol UserRepository: ServiceType {
     func find(id: Int, on connectable: DatabaseConnectable) -> Future<User?>
     func all(on connectable: DatabaseConnectable) -> Future<[User]>
     func find(email: String, on connectable: DatabaseConnectable) -> Future<User?>

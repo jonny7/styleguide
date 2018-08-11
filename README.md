@@ -420,7 +420,7 @@ final class MySQLUserRepository: UserRepository {
 Then, in the controller:
 
 ```swift
-let repository = try req.make(UserRepository.self)
+let repository = try req.make(MySQLUserRepository.self)
 let userQuery = repository
             .find(email: content.email, on: req)
             .unwrap(or: Abort(.unauthorized, reason: "Invalid Credentials"))
